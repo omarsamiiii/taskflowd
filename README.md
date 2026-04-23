@@ -2,19 +2,30 @@
 
 taskflowd is a lightweight C++ workflow runner for dependency-based local job execution.
 
-## Current scope
+The project is intentionally early-stage, but it is structured like a real maintainable C++ tool.
 
-This repository currently includes:
+## Current capabilities
 
-- a basic `Job` model
-- a `Workflow` container
-- workflow validation for:
+- Defines jobs with commands and dependencies
+- Parses a simple workflow file format
+- Validates workflows
+- Reports:
   - duplicate job IDs
+  - empty job IDs
+  - missing commands
   - unknown dependencies
-- a minimal CLI example
-- basic tests
+  - direct and indirect dependency cycles
+- Computes which jobs are ready to run based on dependency status
+- Provides a small CLI
 
-## Build
+## Workflow format
 
-```bash
-./scripts/build.sh
+Example:
+
+```text
+job build
+  command: make all
+
+job test
+  command: ctest
+  depends: build
